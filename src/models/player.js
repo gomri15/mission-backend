@@ -1,4 +1,3 @@
-const connection = require('../services/mongodb')
 const mongoose = require('mongoose')
 
 let playerSchema = new mongoose.Schema({

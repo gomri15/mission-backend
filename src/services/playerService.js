@@ -1,21 +1,19 @@
 const connect = require('./../services/mongodb')
+let PlayerModel = require('./../models/player')
 
 const save = async (newPlayer) => {
     try {
         connect
         const result = await newPlayer.save()
-        console.log(result);
         return result
     } catch (err) {
-        console.log(err);
         return err
     }
 }
 
-const find = async (newPlayer, query) => {
+const find = async (id) => {
     try {
-        connect
-        const result = await newPlayer.find(query)
+        const result = await PlayerModel.findById(id)
         console.log(result);
         return result
     } catch (err) {
@@ -25,6 +23,6 @@ const find = async (newPlayer, query) => {
 }
 
 module.exports = {
-    save: save(),
-    find: find()
+    save,
+    find
 }

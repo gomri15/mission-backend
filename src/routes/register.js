@@ -14,22 +14,28 @@ router.post("/", function (req, res, next) {
     age: req.body.age,
     role: req.body.role
   })
+
   try {
     playerService.save(newPlayer)
-    res.send(newPlayer)
-  } catch (err) {
-    res.send({
-      error: err
-    })
+      .then(result => {
+        console.log(result)
+        res.send(result)
+      })
+      .catch(err => {
+        console.log(err);
+        res.send({
+          error: err
+        })
+      })
+  } catch (error) {
+    res.send(error)
   }
 })
 
 router.get("/:id", (req, res, next) => {
-  const query = {
-    "_id": req.params.id
-  }
-  const result = playerService.find(query)
-  res.send()
+  const id = req.params.id
+  const result = playerService.find(id)
+  res.send(result)
 })
 
 
