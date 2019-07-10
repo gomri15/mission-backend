@@ -11,18 +11,51 @@ const save = async (newPlayer) => {
     }
 }
 
-const find = async (id) => {
+const find = async (id = "") => {
+    if (id) {
+        try {
+            const result = await PlayerModel.findById(id)
+            return result
+        } catch (err) {
+            return err
+        }
+    } else {
+        try {
+            const result = await PlayerModel.find()
+            return result
+        } catch (err) {
+            return err
+        }
+    }
+}
+
+const remove = async (id) => {
     try {
-        const result = await PlayerModel.findById(id)
-        console.log(result);
+        const result = await PlayerModel.deleteOne({
+            _id: id
+        })
         return result
     } catch (err) {
-        console.log(err);
+        return err
+    }
+}
+
+const updateOne = async (id, payload) => {
+    try {
+        const result = await PlayerModel.updateOne({
+            _id: id
+        }, {
+            payload
+        })
+        return result
+    } catch (err) {
         return err
     }
 }
 
 module.exports = {
     save,
-    find
+    find,
+    remove,
+    updateOne
 }
