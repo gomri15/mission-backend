@@ -36,7 +36,6 @@ router.get("/", (req, res, next) => {
       res.status(200).json({
         players: result
       })
-      console.log(result);
     })
     .catch(err => {
       res.status(500).json(err)
@@ -64,6 +63,20 @@ router.get("/:id", (req, res, next) => {
   }
 })
 
+router.get("/username/:name", (req, res, next) => {
+  const query = { "name": req.params.name }
+  playerService.find(id = null, query)
+    .then(result => {
+      res.status(200).json({
+        players: result
+      })
+      console.log(result);
+    })
+    .catch(err => {
+      res.status(500).json(err)
+    })
+})
+
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id
   playerService.remove(id)
@@ -83,19 +96,19 @@ router.delete("/:id", (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-    const playerId = req.params.id
-    if (ObjectId.isValid(playerId)) {
-      try {
-        const player = await playerService.find(playerId)
-        const update = req.body
-        await player.updateOne(update)
-        const updatedPlayer = await playerService.find(playerId)
-        res.status(200).json(updatedPlayer)
-      } catch (error) {
-        res.status(500).json(error)
-      }
+  const playerId = req.params.id
+  if (ObjectId.isValid(playerId)) {
+    try {
+      const player = await playerService.find(playerId)
+      const update = req.body
+      await player.updateOne(update)
+      const updatedPlayer = await playerService.find(playerId)
+      res.status(200).json(updatedPlayer)
+    } catch (error) {
+      res.status(500).json(error)
     }
   }
+}
 
 )
 
