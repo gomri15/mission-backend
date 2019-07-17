@@ -11,7 +11,7 @@ const save = async (newPlayer) => {
     }
 }
 
-const find = async (id = "") => {
+const find = async (id = "", query = {}) => {
     if (id) {
         try {
             const result = await PlayerModel.findById(id)
@@ -21,7 +21,7 @@ const find = async (id = "") => {
         }
     } else {
         try {
-            const result = await PlayerModel.find()
+            const result = await PlayerModel.find(query)
             return result
         } catch (err) {
             return err
@@ -45,8 +45,8 @@ const updateOne = async (id, payload) => {
         const result = await PlayerModel.updateOne({
             _id: id
         }, {
-            payload
-        })
+                payload
+            })
         return result
     } catch (err) {
         return err
