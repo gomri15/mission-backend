@@ -68,7 +68,7 @@ router.get("/username/:name", (req, res, next) => {
   playerService.find(id = null, query)
     .then(result => {
       res.status(200).json({
-        players: result
+        players: result[0].name
       })
       console.log(result);
     })

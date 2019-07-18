@@ -4,11 +4,11 @@ let express = require("express");
 let router = express.Router();
 
 router.post("/", async (req, res, next) => {
-    const username = req.body.username
-    const password = req.body.password
-
-    const query = { name: username }
     try {
+        const username = req.body.username
+        const password = req.body.password
+
+        const query = { name: username }
         const user = await playerService.find(id = null, query)
 
         if (user[0].name && user[0].password === password) {
