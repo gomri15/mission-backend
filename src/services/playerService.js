@@ -14,7 +14,6 @@ const createPlayer = (name, password, age, role) => {
 
 const save = async (newPlayer) => {
     try {
-        connect // redundant
         return await newPlayer.save()
         // redundant -> return result
     } catch (err) {
@@ -55,15 +54,29 @@ const remove = async id => {
 // { name: 'omri' } -> { namde: 'david', age: 26 } 
 // { name: 'omri' } -> { name: 'david' }
 const updateOne = async (id, payload) => {
+    const { name, password, age, role } = payload
     try {
-        const { name } = payload
-        const result = await PlayerModel.updateOne({
-            _id: id
-        }, payload)
-        return result
-    } catch (err) {
-        return err
+        const player = await findById(id)
+        const playerDateToUpate = {
+            name: name || player.name,
+            password: password || player.password,
+            age: age || player.age,
+            role: role || player.role
+        }
+        // const nameToUpdate = name || player.name
+        // const passwordToUpdate = password || player.password
+        // const ageToUpdate = age || player.age
+        // const roleToUpdate = role || player.role
+        player.name = playerDateToUpate.name
+        player.password = playerDateToUpate.password
+        player.age = playerDateToUpate.age
+        player.role = playerDateToUpate.role
+        return await save(player)
+    } catch (error) {
+        return error;
     }
+    // please consider how to improve this function
+    // this is not the right way to do update to row in mongoDB
 }
 
 const updateUserBlaBla = async (id, name, age, friend) => {
