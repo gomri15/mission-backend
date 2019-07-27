@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-
-let playerSchema = new mongoose.Schema({
+// please use const
+const playerSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
     password: String,
@@ -9,3 +9,7 @@ let playerSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Player', playerSchema)
+
+
+// eslint airbnb
+// Please fix all the comments that we gave your today

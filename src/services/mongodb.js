@@ -1,8 +1,5 @@
-let mongoose = require('mongoose');
-const {
-    MONGO_URL,
-    DB
-} = require('./../config')
+const mongoose = require('mongoose');
+const { MONGO_URL, DB } = require('./../config')
 
 class Database {
     constructor() {
