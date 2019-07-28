@@ -57,20 +57,16 @@ const updateOne = async (id, payload) => {
     const { name, password, age, role } = payload
     try {
         const player = await findById(id)
-        const playerDateToUpate = {
+        const playerDataToUpate = {
             name: name || player.name,
             password: password || player.password,
             age: age || player.age,
             role: role || player.role
         }
-        // const nameToUpdate = name || player.name
-        // const passwordToUpdate = password || player.password
-        // const ageToUpdate = age || player.age
-        // const roleToUpdate = role || player.role
-        player.name = playerDateToUpate.name
-        player.password = playerDateToUpate.password
-        player.age = playerDateToUpate.age
-        player.role = playerDateToUpate.role
+        player.name = playerDataToUpate.name
+        player.password = playerDataToUpate.password
+        player.age = playerDataToUpate.age
+        player.role = playerDataToUpate.role
         return await save(player)
     } catch (error) {
         return error;
