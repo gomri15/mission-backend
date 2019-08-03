@@ -50,24 +50,18 @@ const remove = async id => {
         return err
     }
 }
-// payload -> { name: 'david', age: 26 }
-// { name: 'omri' } -> { namde: 'david', age: 26 } 
-// { name: 'omri' } -> { name: 'david' }
+
 const updateOne = async (id, payload) => {
-    const { name, password, age, role } = payload
     try {
+        const { name, password, age, role } = payload
         const player = await findById(id)
-        const playerDataToUpate = {
-            name: name || player.name,
-            password: password || player.password,
-            age: age || player.age,
-            role: role || player.role
+        const updatedPlayer = {
+            'name': name || player.name,
+            'password': password || player.password,
+            'age': age || player.age,
+            'role': role || player.role
         }
-        player.name = playerDataToUpate.name
-        player.password = playerDataToUpate.password
-        player.age = playerDataToUpate.age
-        player.role = playerDataToUpate.role
-        return await save(player)
+        return await PlayerModel.update({ _id: id }, { $set: updatedPlayer })
     } catch (error) {
         return error;
     }

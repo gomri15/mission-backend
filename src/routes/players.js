@@ -2,21 +2,11 @@ const express = require("express");
 const playerService = require('../services/playerService')
 const ObjectId = require('mongoose').Types.ObjectId;
 
-// please consider using const above let
-
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-
   const { name, password, age, role } = req.body
   const newPlayer = playerService.createPlayer(name, password, age, role)
-  // should be set in a service function something like createPlayer
-  // router take a call
-  // Database
-  // service get response
-  // router send the response back to the user
-
-  // please be consistent with your code and use async await anywhere
   try {
     const result = await playerService.save(newPlayer)
     console.log(result)
@@ -29,7 +19,6 @@ router.post('/', async (req, res) => {
   }
 })
 
-// "" -> ''
 
 router.get('/', async (req, res, next) => {
   try {
@@ -42,7 +31,6 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// please use async await
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params
   if (!ObjectId.isValid(id)) {
@@ -50,7 +38,6 @@ router.get('/:id', async (req, res, next) => {
       message: "Id isn't valid"
     })
   }
-  // id sure is valid
   try {
     const result = await playerService.findById(id)
     if (!result) {
@@ -81,7 +68,6 @@ router.get('/username/:name', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   const { id } = req.params
-  // please check id varification
   if (!ObjectId.isValid(id)) {
     return res.status(400).json({
       message: "Id isn't valid"
@@ -109,7 +95,7 @@ router.put('/:id', async (req, res, next) => {
       const upatedPlayer = await playerService.updateOne(id, req.body)
       res.status(200).json(upatedPlayer)
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json({ 'message': error.message })
     }
   }
 })
