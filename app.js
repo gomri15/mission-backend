@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
-app.use((error, req, res) => {
+app.use((error, req, res, next) => {
   sendError(res, customInvalidJSONError);
 });
 app.use(express.urlencoded({

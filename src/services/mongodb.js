@@ -8,9 +8,11 @@ class Database {
 
   async connect() {
     try {
-      await mongoose.connect(`${MONGO_URL}/${DB}`, {
+      const connection = '';
+      this.connection = await mongoose.connect(`${MONGO_URL}/${DB}`, {
         useNewUrlParser: true,
       });
+      return connection;
     } catch (error) {
       return error;
     }

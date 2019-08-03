@@ -2,7 +2,6 @@ const express = require('express');
 const { ObjectId } = require('mongoose').Types;
 const playerService = require('../services/playerService');
 
-
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -35,7 +34,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   if (!ObjectId.isValid(id)) {
-    return res.status(400).json({
+    res.status(400).json({
       message: "Id isn't valid",
     });
   }
@@ -69,7 +68,7 @@ router.get('/username/:name', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   if (!ObjectId.isValid(id)) {
-    return res.status(400).json({
+    res.status(400).json({
       message: "Id isn't valid",
     });
   }
