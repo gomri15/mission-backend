@@ -65,13 +65,9 @@ const updateOne = async (id, payload) => {
     } catch (error) {
         return error;
     }
-    // please consider how to improve this function
-    // this is not the right way to do update to row in mongoDB
 }
 
-const updateUserBlaBla = async (id, name, age, friend) => {
-    return updateOne(id, { $set: { name, age, friend } })
-}
+
 
 module.exports = {
     save,
